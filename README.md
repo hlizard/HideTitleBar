@@ -50,5 +50,7 @@ I have use some code from them.
 # Build
 
 HideTitleBar.csproj —— Visual Studio 2010 ~ 2015 plugin
+
 HideTitleBar.v15.csproj —— Visual Studio 2017 plugin
+
 HideTitleBar.vsix2.csproj —— invalid
