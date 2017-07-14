@@ -1,0 +1,21 @@
+在只安装了vs2012的电脑上需将目标框架设置为4.5才能通过编译；
+在其他电脑上调试时注意项目属性页中调试中的vs的路径；
+
+
+
+
+        private void PopupLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            //Debug.WriteLine("PopupLostKeyboardFocus!");
+            if (!this.hidden && this.MenuContainer != null && !this.IsAggregateFocusInMenuContainer(this.MenuContainer))
+
+        <Icon guid="guidImages" id="bmpPicX" />
+        <Strings>
+          <CommandName>cmdidHideTitleBar</CommandName>
+          <ButtonText>Manual Toggle the Visibility of Title Bar</ButtonText>
+          <ToolTipText>Click this menu item will switch to manual mode also. In manual mode, you can't use ALT key to control the Visibility of Title Bar.</ToolTipText>
+
+
+
+    <Version>1.2.1</Version>
+    <Description xml:space="preserve">Automatically hides the Title Bar of Visual Studio main window after opening a solution.</Description>

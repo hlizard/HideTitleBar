@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="0150ddd7-afc7-4cf5-a849-ae9b77ae2f9b" Version="1.2.1" Language="en-US" Publisher="hlizard" />
+    <DisplayName>Hide Title Bar</DisplayName>
+    <Description xml:space="preserve">Automatically hides the Title Bar of Visual Studio main window after opening a solution.</Description>
+    <Icon>Icon.VS2017.png</Icon>
+    <PreviewImage>Preview.VS2017.png</PreviewImage>
+    <Tags>hide, Title Bar, visual studio title bar, title bar size, title bar height</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,)" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.6,)" />
+  </Dependencies>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
+</PackageManifest>
