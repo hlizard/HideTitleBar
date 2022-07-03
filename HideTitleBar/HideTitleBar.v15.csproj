@@ -60,10 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
-    <None Include="..\HideTitleBar.v15\packages.config" />
     <None Include="..\HideTitleBar.vsix2\source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\HideTitleBar.png" />

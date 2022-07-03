@@ -73,6 +73,10 @@
     </Bitmaps>
   </Commands>
 
+	<KeyBindings>
+		<KeyBinding guid="guidHideTitleBarPackageCmdSet" id="HideTitleBarId" key1="1" mod1="Control" key2="1" mod2="Control" editor="guidVSStd97" />
+	</KeyBindings>
+
   <Symbols>
     <!-- This is the package guid. -->
     <GuidSymbol name="guidHideTitleBarPackage" value="{5fa47fb4-6814-4058-a2ac-ca3157d9b654}" />
