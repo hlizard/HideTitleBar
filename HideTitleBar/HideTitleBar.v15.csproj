@@ -66,6 +66,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="readme.txt" />
     <Content Include="Resources\HideTitleBar.png" />
     <Content Include="Resources\HideTitleBarPackage.ico" />
     <VSCTCompile Include="..\HideTitleBar.v15\HideTitleBarPackage.vsct">

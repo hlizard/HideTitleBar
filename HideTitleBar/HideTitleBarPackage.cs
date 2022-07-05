@@ -138,7 +138,7 @@ namespace Company.HideTitleBar
         /// where you can put all the initilaization code that rely on services provided by VisualStudio.
         /// </summary>
         //protected override void Initialize()
-        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+        protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
             //base.Initialize();
@@ -176,7 +176,8 @@ namespace Company.HideTitleBar
             }
 
             // Add our command handlers for menu (commands must exist in the .vsct file)
-            OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            OleMenuCommandService mcs = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;    // 警告 VSTHRD103   GetService synchronously blocks.Await GetServiceAsync instead.
+
             if ( null != mcs )
             {
                 // Create the command for the menu item.

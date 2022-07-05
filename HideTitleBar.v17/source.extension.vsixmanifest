@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="97b0fd3d-8c02-4b50-8206-8acc81b199e3" Version="1.4.0" Language="en-US" Publisher="hlizard" />
+        <Identity Id="97b0fd3d-8c02-4b50-8206-8acc81b199e3" Version="1.4.0" Language="en-US" Publisher="dingbo" />
         <DisplayName>Hide Title Bar (VS2022)</DisplayName>
         <Description xml:space="preserve">Hides the Title Bar of Visual Studio main window use shortcut Ctrl+1, Ctrl+1.</Description>
         <Icon>Icon.VS2017.png</Icon>
