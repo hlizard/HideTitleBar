@@ -14,6 +14,8 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Company.HideTitleBar
 {
@@ -29,7 +31,8 @@ namespace Company.HideTitleBar
     /// </summary>
     // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
     // a package.
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    [ComVisible(true)]
     // This attribute is used to register the informations needed to show the this package
     // in the Help/About dialog of Visual Studio.
     //[InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
@@ -38,8 +41,80 @@ namespace Company.HideTitleBar
     //[ProvideAutoLoad(VSConstants.UICONTEXT.NoSolution_string)]    //VS2012+下不工作
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionOpening_string)]
     [Guid(GuidList.guidHideTitleBarPkgString)]
-    public sealed class HideTitleBarPackage : Package
+    public sealed class HideTitleBarPackage : AsyncPackage, IVsSolutionEvents
     {
+        #region Implementation of IVsSolutionEvents
+
+        int IVsSolutionEvents.OnAfterOpenProject(IVsHierarchy pHierarchy, int fAdded)
+        {
+            Trace.WriteLine("OnAfterOpenProject", "VSTestPackage1");
+            return VSConstants.S_OK;
+        }
+
+        int IVsSolutionEvents.OnQueryCloseProject(IVsHierarchy pHierarchy, int fRemoving, ref int pfCancel)
+        {
+            Trace.WriteLine("OnQueryCloseProject", "VSTestPackage1");
+            return VSConstants.S_OK;
+        }
+
+        int IVsSolutionEvents.OnBeforeCloseProject(IVsHierarchy pHierarchy, int fRemoved)
+        {
+            Trace.WriteLine("OnBeforeCloseProject", "VSTestPackage1");
+            return VSConstants.S_OK;
+        }
+
+        int IVsSolutionEvents.OnAfterLoadProject(IVsHierarchy pStubHierarchy, IVsHierarchy pRealHierarchy)
+        {
+            Trace.WriteLine("OnAfterLoadProject", "VSTestPackage1");
+            return VSConstants.S_OK;
+        }
+
+        int IVsSolutionEvents.OnQueryUnloadProject(IVsHierarchy pRealHierarchy, ref int pfCancel)
+        {
+            Trace.WriteLine("OnQueryUnloadProject", "VSTestPackage1");
+            return VSConstants.S_OK;
+        }
+
+        int IVsSolutionEvents.OnBeforeUnloadProject(IVsHierarchy pRealHierarchy, IVsHierarchy pStubHierarchy)
+        {
+            Trace.WriteLine("OnBeforeUnloadProject", "VSTestPackage1");
+            return VSConstants.S_OK;
+        }
+
+        int IVsSolutionEvents.OnAfterOpenSolution(object pUnkReserved, int fNewSolution)
+        {
+            Trace.WriteLine("OnAfterOpenSolution", "VSTestPackage1");
+
+            try
+            {
+                HideTitleBar();
+            }
+            catch
+            {
+            }
+            return VSConstants.S_OK;
+        }
+
+        int IVsSolutionEvents.OnQueryCloseSolution(object pUnkReserved, ref int pfCancel)
+        {
+            Trace.WriteLine("OnQueryCloseSolution", "VSTestPackage1");
+            return VSConstants.S_OK;
+        }
+
+        int IVsSolutionEvents.OnBeforeCloseSolution(object pUnkReserved)
+        {
+            Trace.WriteLine("OnBeforeCloseSolution", "VSTestPackage1");
+            return VSConstants.S_OK;
+        }
+
+        int IVsSolutionEvents.OnAfterCloseSolution(object pUnkReserved)
+        {
+            Trace.WriteLine("OnAfterCloseSolution", "VSTestPackage1");
+            return VSConstants.S_OK;
+        }
+
+        #endregion
+
         /// <summary>
         /// Default constructor of the package.
         /// Inside this method you can place any initialization code that does not require 
@@ -62,10 +137,12 @@ namespace Company.HideTitleBar
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
         /// where you can put all the initilaization code that rely on services provided by VisualStudio.
         /// </summary>
-        protected override void Initialize()
+        //protected override void Initialize()
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
-            base.Initialize();
+            //base.Initialize();
+            await base.InitializeAsync(cancellationToken, progress);
 
             EventManager.RegisterClassHandler(typeof(UIElement), UIElement.LostKeyboardFocusEvent, new KeyboardFocusChangedEventHandler(this.PopupLostKeyboardFocus));
             Window mainWindow = Application.Current.MainWindow;
@@ -108,7 +185,7 @@ namespace Company.HideTitleBar
                 mcs.AddCommand( menuItem );
             }
 
-            
+
             //try
             //{
             //    HideTitleBar();
@@ -116,6 +193,10 @@ namespace Company.HideTitleBar
             //catch
             //{
             //}
+
+            // When initialized asynchronously, the current thread may be a background thread at this point.
+            // Do any initialization that requires the UI thread after switching to the UI thread.
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
         }
         #endregion
 
